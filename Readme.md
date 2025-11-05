@@ -5,8 +5,11 @@ this parser is designed to parse simple arythmetic expresions that have simple o
 the examples of the expresions to be parsed are here:
 
 3 + 4
+
 (2 - 1)
+
 5 / 10
+
 (-1)+2
 
 link to crates.io : https://crates.io/crates/my_own_parser_Kharchenko
