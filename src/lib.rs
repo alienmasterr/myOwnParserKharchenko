@@ -13,9 +13,24 @@ pub struct ParseResult {
     pub operators: Vec<char>,
 }
 
+fn checkBalancedBrackets(s: &str) -> bool {
+    let mut balance = 0;
+    for c in s.chars() {
+        if c == '(' {
+            balance += 1;
+        } else if c == ')' {
+            balance -= 1;
+            if balance < 0 {
+                return false;
+            }
+        }
+    }
+    balance == 0
+}
+
 pub fn parseExpression(s: &str) -> Result<ParseResult, ParseError> {
 
-    if s.trim().is_empty() {
+    if s.trim().is_empty() || !checkBalancedBrackets(s) {
 
         return Err(ParseError::InvalidExpression);
 
