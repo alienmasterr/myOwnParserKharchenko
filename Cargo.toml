@@ -1,9 +1,9 @@
 [package]
-name = "my_own_parser_Kharchenko"
-version = "0.1.0"
+name = "arythemetic_expressions_parser_Kharchenko"
+version = "0.2.0"
 edition = "2024"
 license = "MIT"
-description = "My own parser for Rust course in KMA"
+description = "My own parser for Rust course in KMA that parses simple arythemetic expressions"
 
 [dependencies]
 peg = "0.8.5"
