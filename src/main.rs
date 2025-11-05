@@ -3,7 +3,7 @@ use std::io::{self, Write};
 
 fn main() {
 
-    println!("Enter an arythmetic expression:");
+    println!("Enter an arythmetic expression (2 numbers and an operator with brackets are acceptable arythmentic expressions):");
     io::stdout().flush().unwrap();
 
     let mut expr = String::new();
