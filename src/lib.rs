@@ -30,6 +30,10 @@ fn checkBalancedBrackets(s: &str) -> bool {
 
 pub fn parseExpression(s: &str) -> Result<ParseResult, ParseError> {
 
+    if s.starts_with('(') && s.ends_with(')') {
+        return parseExpression(&s[1..s.len()-1]);
+    }
+
     if s.trim().is_empty() || !checkBalancedBrackets(s) {
 
         return Err(ParseError::InvalidExpression);
