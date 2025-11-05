@@ -1,4 +1,4 @@
-## arythemetic_expressions_parser_Kharchenko
+## arythemetic_expresions_parser_Kharchenko
 
 this parser is designed to parse simple arythmetic expresions that have simple operators (+-*/) and numbers and show operators, operands and results of the operations
 
