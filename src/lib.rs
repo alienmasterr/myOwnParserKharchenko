@@ -1,13 +1,3 @@
-// peg::parser! {
-//     pub grammar list_parser() for str {
-//       rule number() -> u32
-//         = n:$(['0'..='9']+) {? n.parse().or(Err("u32")) }
-  
-//       pub rule list() -> Vec<u32>
-//         = "[" l:(number() ** ",") "]" { l }
-//     }
-//   }
-
 use thiserror::Error;
 
 #[derive(Debug, Error)]
@@ -16,7 +6,14 @@ pub enum ParseError {
     InvalidExpression,
 }
 
-pub fn parse_expression(s: &str) -> Result<f64, ParseError> {
+#[derive(Debug)]
+pub struct ParseResult {
+    pub result: f64,
+    pub operands: Vec<f64>,
+    pub operators: Vec<char>,
+}
+
+pub fn parseExpression(s: &str) -> Result<ParseResult, ParseError> {
 
     if s.trim().is_empty() {
 
@@ -32,7 +29,11 @@ pub fn parse_expression(s: &str) -> Result<f64, ParseError> {
         let left: f64 = parts[0].trim().parse().map_err(|_| ParseError::InvalidExpression)?;
         let right: f64 = parts[1].trim().parse().map_err(|_| ParseError::InvalidExpression)?;
 
-        Ok(left - right)
+        Ok(ParseResult {
+            result: left - right,
+            operands: vec![left, right],
+            operators: vec!['-'],
+        })
 
     } else if s.contains('*'){
 
@@ -44,7 +45,11 @@ pub fn parse_expression(s: &str) -> Result<f64, ParseError> {
         let left: f64 = parts[0].trim().parse().map_err(|_| ParseError::InvalidExpression)?;
         let right: f64 = parts[1].trim().parse().map_err(|_| ParseError::InvalidExpression)?;
 
-        Ok(left * right)
+        Ok(ParseResult {
+            result: left * right,
+            operands: vec![left, right],
+            operators: vec!['*'],
+        })
 
     } else if s.contains('/') {
 
@@ -60,7 +65,11 @@ pub fn parse_expression(s: &str) -> Result<f64, ParseError> {
             return Err(ParseError::InvalidExpression);
         }
 
-        Ok(left / right)
+        Ok(ParseResult {
+            result: left / right,
+            operands: vec![left, right],
+            operators: vec!['/'],
+        })
 
     } else if s.contains('+') {
 
@@ -72,11 +81,15 @@ pub fn parse_expression(s: &str) -> Result<f64, ParseError> {
     let left: f64 = parts[0].trim().parse().map_err(|_| ParseError::InvalidExpression)?;
     let right: f64 = parts[1].trim().parse().map_err(|_| ParseError::InvalidExpression)?;
 
-    Ok(left + right)
+    Ok(ParseResult {
+        result: left + right,
+        operands: vec![left, right],
+        operators: vec!['+'],
+    })
 
     } else {
 
     Err(ParseError::InvalidExpression)
-    
+
     }
 }
