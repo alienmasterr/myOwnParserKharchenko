@@ -1,12 +1,12 @@
-## arythemetic_expresions_parser_Kharchenko
+## arythemetic_expressions_parser_Kharchenko
 
-this parser is designed to parse simple arythmetic expresions that have simple operators (+-*/) and numbers and show operators, operands and results of the operations
+this parser is designed to parse simple arythmetic expressions that have simple operators (+-*/) and numbers and show operators, operands and results of the operations
 
-the examples of the expresions to be parsed are here:
+the examples of the expressions to be parsed are here:
 
 1+2 ; 1+ 2 ; 1-2 ; 1/2 ; 1+(-2) ; 1-(-2) ; 1*(-2) ; 1/(-2) ; -(1+2) ; ((1+2))
 
-the parser works in a way that it removes the extra brackets, changes operators' concatanations (exmpl -(-a) = a) and than devides the expresion tooperators and operands and performs arythmetic operations afterwards. it also returns the operators and operands of the expresion after the mentioned previously expression simplification.
+the parser works in a way that it removes the extra brackets, changes operators' concatanations (exmpl -(-a) = a) and than devides the expression tooperators and operands and performs arythmetic operations afterwards. it also returns the operators and operands of the expression after the mentioned previously expression simplification.
 
 Here is the main parsing logic:
 
