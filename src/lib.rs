@@ -34,13 +34,39 @@ pub fn parseExpression(s: &str) -> Result<ParseResult, ParseError> {
         return parseExpression(&s[1..s.len()-1]);
     }
 
+    if (s.contains("+(-") || s.contains("-(-") || s.contains("*(-")|| s.contains("/(-")) && s.ends_with(')') {
+
+        let mut new_s = s.replace("+(-", "-");
+        new_s = new_s.replace("-(-", "+");
+        new_s = new_s.replace("*(-", "*-");
+        new_s = new_s.replace("/(-", "/-");
+
+        if new_s.ends_with(')') {
+            new_s.pop();
+        }
+
+        return parseExpression(&new_s);
+    }
+
+    if s.starts_with("-(") && s.ends_with(')') {
+        
+        let inner = &s[2..s.len() - 1];
+        let inner_result = parseExpression(inner)?;
+    
+        return Ok(ParseResult {
+            result: -inner_result.result,
+            operands: inner_result.operands,
+            operators: inner_result.operators,
+        });
+    }
+
     if s.trim().is_empty() || !checkBalancedBrackets(s) {
 
         return Err(ParseError::InvalidExpression);
 
-    } else if s.contains('-'){
+    } else if s.contains('+'){
 
-        let parts: Vec<&str> = s.split('-').collect();
+        let parts: Vec<&str> = s.split('+').collect();
         if parts.len() != 2 {
             return Err(ParseError::InvalidExpression);
         }
@@ -49,9 +75,9 @@ pub fn parseExpression(s: &str) -> Result<ParseResult, ParseError> {
         let right: f64 = parts[1].trim().parse().map_err(|_| ParseError::InvalidExpression)?;
 
         Ok(ParseResult {
-            result: left - right,
+            result: left + right,
             operands: vec![left, right],
-            operators: vec!['-'],
+            operators: vec!['+'],
         })
 
     } else if s.contains('*'){
@@ -90,9 +116,9 @@ pub fn parseExpression(s: &str) -> Result<ParseResult, ParseError> {
             operators: vec!['/'],
         })
 
-    } else if s.contains('+') {
+    } else if s.contains('-') {
 
-    let parts: Vec<&str> = s.split('+').collect();
+    let parts: Vec<&str> = s.split('-').collect();
     if parts.len() != 2 {
         return Err(ParseError::InvalidExpression);
     }
@@ -101,9 +127,9 @@ pub fn parseExpression(s: &str) -> Result<ParseResult, ParseError> {
     let right: f64 = parts[1].trim().parse().map_err(|_| ParseError::InvalidExpression)?;
 
     Ok(ParseResult {
-        result: left + right,
+        result: left - right,
         operands: vec![left, right],
-        operators: vec!['+'],
+        operators: vec!['-'],
     })
 
     } else {
