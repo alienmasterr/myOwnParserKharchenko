@@ -1,5 +1,18 @@
 use my_own_parser_Kharchenko::*;
+use std::io::{self, Write};
 
-pub fn main() {
-    println!("{:?}", list_parser::list("[1,1,2,3,5,8]"));
+fn main() {
+    
+    println!("Enter an arythmetic expression:");
+    io::stdout().flush().unwrap();
+
+    let mut expr = String::new();
+    io::stdin().read_line(&mut expr).unwrap();
+
+    match parse_expression(expr.trim()) {
+        Ok(result) => println!("Result: {}", result),
+        Err(e) => println!("Error parsing expression: {:?}", e),
+    }
+
+    
 }

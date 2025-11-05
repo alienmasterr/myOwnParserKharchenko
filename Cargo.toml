@@ -7,3 +7,4 @@ description = "My own parser for Rust course in KMA"
 
 [dependencies]
 peg = "0.8.5"
+thiserror = "2.0.17"
