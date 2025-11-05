@@ -10,8 +10,6 @@ the parser works in a way that it removes the extra brackets, changes operators'
 
 Here is the main parsing logic:
 
-rust
-'''
 pub fn parseExpression(s: &str) -> Result<ParseResult, ParseError> {
 
     if s.starts_with('(') && s.ends_with(')') {
@@ -122,6 +120,5 @@ pub fn parseExpression(s: &str) -> Result<ParseResult, ParseError> {
 
     }
 }
-'''
 
 link to crates.io : https://crates.io/crates/my_own_parser_Kharchenko
