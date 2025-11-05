@@ -1,4 +1,4 @@
-use my_own_parser_Kharchenko::*;
+use arythemetic_expressions_parser_Kharchenko::*;
 use std::io::{self, Write};
 
 fn main() {

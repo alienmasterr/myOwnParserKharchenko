@@ -1,5 +1,5 @@
-use my_own_parser_Kharchenko::ParseError;
-use my_own_parser_Kharchenko::parseExpression;
+use arythemetic_expressions_parser_Kharchenko::ParseError;
+use arythemetic_expressions_parser_Kharchenko::parseExpression;
 
 #[test]
 fn test_simple_add() {
