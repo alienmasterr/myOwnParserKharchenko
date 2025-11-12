@@ -46,3 +46,5 @@ the parser evaluates input expressions and returns the result
      - domain errors for `log` and `sqrt`
      - acceptable characters (no random strings allowed)
    - invalid expressions returns `ParseError::InvalidExpression`
+
+## link to crates.io : https://crates.io/crates/arythemetic_expressions_parser_Kharchenko
