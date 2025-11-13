@@ -47,4 +47,11 @@ the parser evaluates input expressions and returns the result
      - acceptable characters (no random strings allowed)
    - invalid expressions returns `ParseError::InvalidExpression`
 
+5. **grammar overview**
+
+- expression ::= Term { ("+" | "-") Term }
+- term       ::= Factor { ("*" | "/") Factor }
+- factor     ::= Number | "(" Expression ")" | Function | "-" Factor
+- function   ::= "log" "(" Expression ")" | "sqrt" "(" Expression ")"
+
 #### link to crates.io : https://crates.io/crates/arythemetic_expressions_parser_kharchenko_kma
