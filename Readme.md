@@ -47,7 +47,7 @@ the parser evaluates input expressions and returns the result
      - acceptable characters (no random strings allowed)
    - invalid expressions returns `ParseError::InvalidExpression`
 
-5. **grammar overview**
+## grammar overview**
 
 - expression ::= Term { ("+" | "-") Term }
 - term       ::= Factor { ("*" | "/") Factor }
