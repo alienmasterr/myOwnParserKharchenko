@@ -1,4 +1,4 @@
-# arythemetic_expressions_parser_Kharchenko
+# arythemetic_expressions_parser_kharchenko_kma
 
 ## overview
 
@@ -47,4 +47,4 @@ the parser evaluates input expressions and returns the result
      - acceptable characters (no random strings allowed)
    - invalid expressions returns `ParseError::InvalidExpression`
 
-#### link to crates.io : https://crates.io/crates/arythemetic_expressions_parser_Kharchenko
+#### link to crates.io : https://crates.io/crates/arythemetic_expressions_parser_kharchenko_kma
