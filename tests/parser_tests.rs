@@ -1,6 +1,6 @@
 use anyhow::{Result, anyhow};
-use arythemetic_expressions_parser_kharchenko_kma::ParseError;
 use arythemetic_expressions_parser_kharchenk_kma::parse_expression;
+use arythemetic_expressions_parser_kharchenko_kma::ParseError;
 
 #[test]
 fn test_single() -> Result<()> {
