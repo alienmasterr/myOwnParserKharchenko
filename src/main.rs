@@ -1,4 +1,4 @@
-use arythemetic_expressions_parser_kharchenko::*;
+use arythemetic_expressions_parser_kharchenko_kma::*;
 use std::fs::File;
 use std::io::{self, BufRead};
 
