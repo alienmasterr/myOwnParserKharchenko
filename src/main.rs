@@ -1,6 +1,6 @@
-use arythemetic_expressions_parser_Kharchenko::*;
+use arythemetic_expressions_parser_kharchenko::*;
 use std::fs::File;
-use std::io::{self, BufRead, Write};
+use std::io::{self, BufRead};
 
 fn main() {
     println!("Welcome to Arythmetic Expression Parser CLI!");
@@ -52,7 +52,7 @@ fn parse_file(filename: &str) {
         if line.trim().is_empty() {
             continue;
         }
-        match parseExpression(line.trim()) {
+        match parse_expression(line.trim()) {
             Ok(res) => println!("Line {}: {} = {}", i + 1, line, res.result),
             Err(e) => println!("Line {}: {} -> Error: {:?}", i + 1, line, e),
         }

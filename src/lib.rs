@@ -13,7 +13,7 @@ pub struct ParseResult {
     pub operators: Vec<char>,
 }
 
-fn checkBalancedBrackets(s: &str) -> bool {
+fn check_balanced_brackets(s: &str) -> bool {
     let mut balance = 0;
     for c in s.chars() {
         if c == '(' {
@@ -32,10 +32,11 @@ fn checkBalancedBrackets(s: &str) -> bool {
 fn remove_outer_brackets(s: &str) -> Option<&str> {
     if s.starts_with('(') && s.ends_with(')') {
         let mut balance = 0;
-        let mut i = 0;
-        let mut chars = s.chars();
+        // let mut i = 0;
+        let chars = s.chars();
 
-        while let Some(c) = chars.next() {
+        // while let Some(c) = chars.next() {
+        for (i, c) in chars.enumerate() {
             if c == '(' {
                 balance += 1;
             } else if c == ')' {
@@ -45,138 +46,138 @@ fn remove_outer_brackets(s: &str) -> Option<&str> {
             if balance == 0 && i < s.len() - 1 {
                 return None;
             }
-            i += 1;
+            // i += 1;
         }
 
         if balance == 0 {
             return Some(&s[1..s.len() - 1]);
         }
     }
-    return None;
+    None
 }
 
-fn has_minus(s: &str) -> bool {
-    return (s.contains("+(-") || s.contains("-(-") || s.contains("*(-") || s.contains("/(-"))
-        && s.ends_with(')');
-}
+// fn has_minus(s: &str) -> bool {
+//     return (s.contains("+(-") || s.contains("-(-") || s.contains("*(-") || s.contains("/(-"))
+//         && s.ends_with(')');
+// }
 
-fn simplify_minus(s: &str) -> String {
-    let mut new_s = s.replace("+(-", "-");
-    new_s = new_s.replace("-(-", "+");
-    new_s = new_s.replace("*(-", "*-");
-    new_s = new_s.replace("/(-", "/-");
+// fn simplify_minus(s: &str) -> String {
+//     let mut new_s = s.replace("+(-", "-");
+//     new_s = new_s.replace("-(-", "+");
+//     new_s = new_s.replace("*(-", "*-");
+//     new_s = new_s.replace("/(-", "/-");
 
-    if new_s.ends_with(')') {
-        new_s.pop();
-    }
+//     if new_s.ends_with(')') {
+//         new_s.pop();
+//     }
 
-    return new_s;
-}
+//     return new_s;
+// }
 
-fn has_minus_at_start(s: &str) -> bool {
-    return s.starts_with("-(") && s.ends_with(')');
-}
+// fn has_minus_at_start(s: &str) -> bool {
+//     return s.starts_with("-(") && s.ends_with(')');
+// }
 
-fn handle_minus_at_start(s: &str) -> Result<ParseResult, ParseError> {
-    let inner = &s[2..s.len() - 1];
-    let inner_result = parseExpression(inner)?;
+// fn handle_minus_at_start(s: &str) -> Result<ParseResult, ParseError> {
+//     let inner = &s[2..s.len() - 1];
+//     let inner_result = parse_expression(inner)?;
 
-    return Ok(ParseResult {
-        result: -inner_result.result,
-        operands: inner_result.operands,
-        operators: inner_result.operators,
-    });
-}
+//     return Ok(ParseResult {
+//         result: -inner_result.result,
+//         operands: inner_result.operands,
+//         operators: inner_result.operators,
+//     });
+// }
 
-fn pasre_simple_expression(s: &str) -> Result<ParseResult, ParseError> {
-    if s.contains('+') {
-        let parts: Vec<&str> = s.split('+').collect();
-        if parts.len() != 2 {
-            return Err(ParseError::InvalidExpression);
-        }
+// fn pasre_simple_expression(s: &str) -> Result<ParseResult, ParseError> {
+//     if s.contains('+') {
+//         let parts: Vec<&str> = s.split('+').collect();
+//         if parts.len() != 2 {
+//             return Err(ParseError::InvalidExpression);
+//         }
 
-        let left: f64 = parts[0]
-            .trim()
-            .parse()
-            .map_err(|_| ParseError::InvalidExpression)?;
-        let right: f64 = parts[1]
-            .trim()
-            .parse()
-            .map_err(|_| ParseError::InvalidExpression)?;
+//         let left: f64 = parts[0]
+//             .trim()
+//             .parse()
+//             .map_err(|_| ParseError::InvalidExpression)?;
+//         let right: f64 = parts[1]
+//             .trim()
+//             .parse()
+//             .map_err(|_| ParseError::InvalidExpression)?;
 
-        Ok(ParseResult {
-            result: left + right,
-            operands: vec![left, right],
-            operators: vec!['+'],
-        })
-    } else if s.contains('*') {
-        let parts: Vec<&str> = s.split('*').collect();
-        if parts.len() != 2 {
-            return Err(ParseError::InvalidExpression);
-        }
+//         Ok(ParseResult {
+//             result: left + right,
+//             operands: vec![left, right],
+//             operators: vec!['+'],
+//         })
+//     } else if s.contains('*') {
+//         let parts: Vec<&str> = s.split('*').collect();
+//         if parts.len() != 2 {
+//             return Err(ParseError::InvalidExpression);
+//         }
 
-        let left: f64 = parts[0]
-            .trim()
-            .parse()
-            .map_err(|_| ParseError::InvalidExpression)?;
-        let right: f64 = parts[1]
-            .trim()
-            .parse()
-            .map_err(|_| ParseError::InvalidExpression)?;
+//         let left: f64 = parts[0]
+//             .trim()
+//             .parse()
+//             .map_err(|_| ParseError::InvalidExpression)?;
+//         let right: f64 = parts[1]
+//             .trim()
+//             .parse()
+//             .map_err(|_| ParseError::InvalidExpression)?;
 
-        Ok(ParseResult {
-            result: left * right,
-            operands: vec![left, right],
-            operators: vec!['*'],
-        })
-    } else if s.contains('/') {
-        let parts: Vec<&str> = s.split('/').collect();
-        if parts.len() != 2 {
-            return Err(ParseError::InvalidExpression);
-        }
+//         Ok(ParseResult {
+//             result: left * right,
+//             operands: vec![left, right],
+//             operators: vec!['*'],
+//         })
+//     } else if s.contains('/') {
+//         let parts: Vec<&str> = s.split('/').collect();
+//         if parts.len() != 2 {
+//             return Err(ParseError::InvalidExpression);
+//         }
 
-        let left: f64 = parts[0]
-            .trim()
-            .parse()
-            .map_err(|_| ParseError::InvalidExpression)?;
-        let right: f64 = parts[1]
-            .trim()
-            .parse()
-            .map_err(|_| ParseError::InvalidExpression)?;
+//         let left: f64 = parts[0]
+//             .trim()
+//             .parse()
+//             .map_err(|_| ParseError::InvalidExpression)?;
+//         let right: f64 = parts[1]
+//             .trim()
+//             .parse()
+//             .map_err(|_| ParseError::InvalidExpression)?;
 
-        if right == 0.0 {
-            return Err(ParseError::InvalidExpression);
-        }
+//         if right == 0.0 {
+//             return Err(ParseError::InvalidExpression);
+//         }
 
-        Ok(ParseResult {
-            result: left / right,
-            operands: vec![left, right],
-            operators: vec!['/'],
-        })
-    } else if s.contains('-') {
-        let parts: Vec<&str> = s.split('-').collect();
-        if parts.len() != 2 {
-            return Err(ParseError::InvalidExpression);
-        }
+//         Ok(ParseResult {
+//             result: left / right,
+//             operands: vec![left, right],
+//             operators: vec!['/'],
+//         })
+//     } else if s.contains('-') {
+//         let parts: Vec<&str> = s.split('-').collect();
+//         if parts.len() != 2 {
+//             return Err(ParseError::InvalidExpression);
+//         }
 
-        let left: f64 = parts[0]
-            .trim()
-            .parse()
-            .map_err(|_| ParseError::InvalidExpression)?;
-        let right: f64 = parts[1]
-            .trim()
-            .parse()
-            .map_err(|_| ParseError::InvalidExpression)?;
+//         let left: f64 = parts[0]
+//             .trim()
+//             .parse()
+//             .map_err(|_| ParseError::InvalidExpression)?;
+//         let right: f64 = parts[1]
+//             .trim()
+//             .parse()
+//             .map_err(|_| ParseError::InvalidExpression)?;
 
-        Ok(ParseResult {
-            result: left - right,
-            operands: vec![left, right],
-            operators: vec!['-'],
-        })
-    } else {
-        Err(ParseError::InvalidExpression)
-    }
-}
+//         Ok(ParseResult {
+//             result: left - right,
+//             operands: vec![left, right],
+//             operators: vec!['-'],
+//         })
+//     } else {
+//         Err(ParseError::InvalidExpression)
+//     }
+// }
 
 fn handle_long_expression(s: &str) -> Result<ParseResult, ParseError> {
     let mut nums = Vec::new();
@@ -263,15 +264,14 @@ fn handle_long_expression(s: &str) -> Result<ParseResult, ParseError> {
         if ops[j] == '*' || ops[j] == '/' {
             let left = nums[j];
             let right = nums[j + 1];
-            let mut res: f64 = 0.0;
-            if ops[j] == '*' {
-                res = left * right;
+            let res: f64 = if ops[j] == '*' {
+                left * right
             } else {
                 if right == 0.0 {
                     return Err(ParseError::InvalidExpression);
                 }
-                res = left / right;
-            }
+                left / right
+            };
             nums[j] = res;
             nums.remove(j + 1);
             ops.remove(j);
@@ -304,7 +304,7 @@ fn handle_long_expression(s: &str) -> Result<ParseResult, ParseError> {
 fn handle_log(s: &str) -> Result<ParseResult, ParseError> {
     let s = s.trim();
     if let Some(inner) = s.strip_prefix("log(").and_then(|s| s.strip_suffix(")")) {
-        let inner_res = parseExpression(inner)?;
+        let inner_res = parse_expression(inner)?;
         if inner_res.result <= 0.0 {
             return Err(ParseError::InvalidExpression);
         }
@@ -322,7 +322,7 @@ fn handle_log(s: &str) -> Result<ParseResult, ParseError> {
 fn handle_sqrt(s: &str) -> Result<ParseResult, ParseError> {
     let s = s.trim();
     if let Some(inner) = s.strip_prefix("sqrt(").and_then(|s| s.strip_suffix(")")) {
-        let inner_res = parseExpression(inner)?;
+        let inner_res = parse_expression(inner)?;
         if inner_res.result < 0.0 {
             return Err(ParseError::InvalidExpression);
         }
@@ -337,23 +337,23 @@ fn handle_sqrt(s: &str) -> Result<ParseResult, ParseError> {
 }
 
 // the function to parse expression
-pub fn parseExpression(s: &str) -> Result<ParseResult, ParseError> {
+pub fn parse_expression(s: &str) -> Result<ParseResult, ParseError> {
     let s = s.trim();
 
     if let Some(inner) = remove_outer_brackets(s) {
-        return parseExpression(inner);
+        return parse_expression(inner);
     }
 
     // if has_minus(s) {
     //     let simplified = simplify_minus(s);
-    //     return parseExpression(&simplified);
+    //     return parse_expression(&simplified);
     // }
 
     // if has_minus_at_start(s) {
     //     return handle_minus_at_start(s);
     // }
 
-    if s.trim().is_empty() || !checkBalancedBrackets(s) {
+    if s.trim().is_empty() || !check_balanced_brackets(s) {
         return Err(ParseError::InvalidExpression);
     } else {
         if let Ok(num) = s.parse::<f64>() {
@@ -377,5 +377,5 @@ pub fn parseExpression(s: &str) -> Result<ParseResult, ParseError> {
         }
     }
 
-    return Err(ParseError::InvalidExpression);
+    Err(ParseError::InvalidExpression)
 }

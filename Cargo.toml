@@ -1,5 +1,5 @@
 [package]
-name = "arythemetic_expressions_parser_Kharchenko"
+name = "arythemetic_expressions_parser_kharchenko"
 version = "0.1.3"
 edition = "2024"
 license = "MIT"
