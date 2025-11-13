@@ -44,6 +44,16 @@
 //! - `credits` — show author and project details  
 //! - `parse <filename>` — parse and evaluate expressions from a file  
 //!
+//! ## Grammar Rules Implemented
+//!
+//! 1. **Handle nested brackets:** `((x))`
+//! 2. **Handle expressions within brackets:** `(x)`
+//! 3. **Handle long expressions with multiple operators:** `x + y - z * w / v`
+//! 4. **Handle special function with inside expressions:** `log(x)`
+//! 5. **Handle special function with inside expressions:** `sqrt(x)`
+//!
+//! PS : all rules handle whitespaces appropriately and mind the domain of functions.
+//!
 //! ## Error Handling
 //!
 //! - Invalid or undefined expressions (e.g. `log(0)` or `sqrt(-1)`) trigger an `InvalidExpression` error.  
@@ -57,6 +67,20 @@
 //! sqrt(16)
 //! (2 + 3) * (4 - 1)
 //! ```
+//!
+//! ## Makefile
+//!
+//! A simple Makefile is provided to build and run the project.
+//! It includes the following commands:
+//!```text
+//!    make run-args args="help" - run program with arguments
+//!    make test - run tests
+//!    make fmt - format code using cargo fmt
+//!    make clippy - check if to refactor code using cargo clippy
+//!    make precommit - run fmt, clippy and tests before committing
+//!    make all - full clean build + tests
+//!    make clean - remove build artifacts
+//!```
 //!
 //! ## Summary
 //!
