@@ -1,3 +1,68 @@
+//! # Arithmetic Expressions Parser
+//!
+//! This project implements a **command-line parser** for simple arithmetic expressions.
+//! It can **parse**, **evaluate**, and **return results** for a wide variety of arithmetic constructs.
+//!
+//! ## Supported Features
+//!
+//! - **Basic arithmetic operations:** `+`, `-`, `*`, `/`  
+//! - **Nested brackets:** `((...))` for grouping expressions  
+//! - **Negative numbers:** `-x` or expressions like `-(1 + 2)`  
+//! - **Special functions:**
+//!   - `log(x)` — computes the **natural logarithm (ln)**  
+//!   - `sqrt(x)` — computes the **square root**
+//! - **Arithmetic inside special functions:** `log(10 + 5)`, `sqrt(2 + 7)`  
+//! - **Sequential expressions:** `((2 + 3) * 4)`  
+//!
+//! ## Grammar Overview
+//!
+//! ```text
+//! Expression ::= Term { ("+" | "-") Term }
+//! Term       ::= Factor { ("*" | "/") Factor }
+//! Factor     ::= Number | "(" Expression ")" | Function | "-" Factor
+//! Function   ::= "log" "(" Expression ")" | "sqrt" "(" Expression ")"
+//! ```
+//!
+//! ## Example Usage
+//!
+//! ```bash
+//! # Run the program in interactive mode
+//! cargo run
+//! ```
+//!
+//! ```text
+//! Enter an arithmetic expression:
+//! > sqrt(9) + log(10)
+//! Result: 5.302585092994046
+//! ```
+//!
+//! ## Command-Line Interface
+//!
+//! The CLI provides several commands:
+//!
+//! - `help` — display usage information  
+//! - `credits` — show author and project details  
+//! - `parse <filename>` — parse and evaluate expressions from a file  
+//!
+//! ## Error Handling
+//!
+//! - Invalid or undefined expressions (e.g. `log(0)` or `sqrt(-1)`) trigger an `InvalidExpression` error.  
+//! - Errors are managed using [`thiserror`](https://docs.rs/thiserror/latest/thiserror/) in the library and [`anyhow`](https://docs.rs/anyhow/latest/anyhow/) in tests.
+//!
+//! ## Example Input File (`expressions.txt`)
+//!
+//! ```text
+//! 2 + 3 * 4
+//! log(10)
+//! sqrt(16)
+//! (2 + 3) * (4 - 1)
+//! ```
+//!
+//! ## Summary
+//!
+//! The parser reads arithmetic expressions, constructs a syntax tree according to grammar rules,
+//! and computes the resulting numeric value while handling errors gracefully.
+
 use thiserror::Error;
 
 #[derive(Debug, Error)]
