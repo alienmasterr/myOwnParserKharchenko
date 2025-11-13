@@ -1,9 +1,8 @@
 use arythemetic_expressions_parser_Kharchenko::*;
-use std::io::{self, Write, BufRead};
 use std::fs::File;
+use std::io::{self, BufRead, Write};
 
 fn main() {
-
     println!("Welcome to Arythmetic Expression Parser CLI!");
     let args: Vec<String> = std::env::args().collect();
 
@@ -26,7 +25,6 @@ fn main() {
         println!("unknown enter: {}", args[1]);
         print_help();
     }
- 
 }
 
 fn print_help() {
