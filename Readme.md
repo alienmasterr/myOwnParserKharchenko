@@ -49,6 +49,7 @@ the parser evaluates input expressions and returns the result
 
 ### grammar overview
 
+1. **text explanation**
 - expression ::= `Term` { ("+" | "-") `Term` }
 - term       ::= `Factor` { ("*" | "/") `Factor` }
 - factor     ::= `Number` | "(" `Expression` ")" | `Function` | "-" `Factor`
@@ -58,5 +59,15 @@ the parser evaluates input expressions and returns the result
    - `Term` — multiplication/division
    - `Factor` — the number, inner expression or a function
    - `Function` — log or sqrt
+     
+2. **the tree on the example of an expression `sqrt(2 + 3) * 4`**
+        (*)
+       /   \
+    sqrt     4
+     |
+     (+)
+    /   \
+   2     3
+
 
 #### link to crates.io : https://crates.io/crates/arythemetic_expressions_parser_kharchenko_kma
