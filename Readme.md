@@ -61,6 +61,7 @@ the parser evaluates input expressions and returns the result
    - `Function` — log or sqrt
      
 2. **the tree on the example of an expression `sqrt(2 + 3) * 4`**
+```
         (*)
        /   \
     sqrt     4
@@ -68,6 +69,7 @@ the parser evaluates input expressions and returns the result
      (+)
     /   \
    2     3
+```
 
 
 #### link to crates.io : https://crates.io/crates/arythemetic_expressions_parser_kharchenko_kma
