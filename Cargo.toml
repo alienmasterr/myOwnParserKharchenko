@@ -1,6 +1,6 @@
 [package]
 name = "arythemetic_expressions_parser_kharchenko"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2024"
 license = "MIT"
 description = "My own parser for Rust course in KMA that parses simple arythemetic expressions"
