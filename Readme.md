@@ -49,9 +49,14 @@ the parser evaluates input expressions and returns the result
 
 ### grammar overview
 
-- expression ::= Term { ("+" | "-") Term }
-- term       ::= Factor { ("*" | "/") Factor }
-- factor     ::= Number | "(" Expression ")" | Function | "-" Factor
-- function   ::= "log" "(" Expression ")" | "sqrt" "(" Expression ")"
+- expression ::= `Term` { ("+" | "-") `Term` }
+- term       ::= `Factor` { ("*" | "/") `Factor` }
+- factor     ::= `Number` | "(" `Expression` ")" | `Function` | "-" `Factor`
+- function   ::= "log" "(" `Expression` ")" | "sqrt" "(" `Expression` ")"
+
+   - `Expression` — any expression, which may be calculated by the program
+   - `Term` — multiplication/division
+   - `Factor` — the number, inner expression or a function
+   - `Function` — log or sqrt
 
 #### link to crates.io : https://crates.io/crates/arythemetic_expressions_parser_kharchenko_kma
